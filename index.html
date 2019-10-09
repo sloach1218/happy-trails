@@ -13,16 +13,17 @@
             <fieldset>
                 <legend>Find your next hiking trail.</legend>
                 <label for="location">Location:</label>
-                <input type="text" name="location" required>
+                <input type="text" name="location" id="location" required>
                 <label for="distanceFrom">Max distance from location:</label>
-                <input type="text" name="distranFrom" required>
+                <input type="number" name="distranFrom">
                 <label for="trailLength">Min Trial Length:</label>
-                <input type="text" name="trailLength">
+                <input type="number" name="trailLength">
                 <label for="minimumRating">Minimum Star rating:</label>
-                <input type="text" name="minimumRating">
+                <input type="number" name="minimumRating">
                 <button type="submit">Submit</button>
             </fieldset>
         </form>
+        <ul></ul>
     </main>
     
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
