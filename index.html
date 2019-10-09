@@ -8,6 +8,22 @@
     <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
+    <main>
+        <form>
+            <fieldset>
+                <legend>Find your next hiking trail.</legend>
+                <label for="location">Location:</label>
+                <input type="text" name="location" required>
+                <label for="distanceFrom">Max distance from location:</label>
+                <input type="text" name="distranFrom" required>
+                <label for="trailLength">Min Trial Length:</label>
+                <input type="text" name="trailLength">
+                <label for="minimumRating">Minimum Star rating:</label>
+                <input type="text" name="minimumRating">
+                <button type="submit">Submit</button>
+            </fieldset>
+        </form>
+    </main>
     
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="index.js"></script>
