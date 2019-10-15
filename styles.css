@@ -7,6 +7,7 @@ body{
 }
 fieldset{
     border: none;
+    margin-top:10px;
 }
 form{
     margin: 0;
@@ -24,3 +25,40 @@ input, button{
     margin-bottom: 10px;
     padding: 5px 4px;
 }
+
+
+/*Display Search Results Styles*/
+ul{
+    padding:0 20px;
+    max-width:1000px;
+}
+ul li {
+    text-align: left;
+    list-style: none;
+    clear: both;
+    background-color: lightgray;
+    padding:10px;
+    margin-bottom: 20px;
+    overflow: auto;
+}
+ul li div{
+    float: right;
+    width:200px;
+    height:200px;
+    overflow: hidden;
+}
+ul li div img{
+    margin: 0 auto;
+    display: block;
+    height:200px;
+    width: auto;
+}
+ul li h2{
+    margin: 0 0 10px 0;
+}
+ul li p{
+    margin: 8px 0;
+}
+
+
+/* Larger Screen sizes */

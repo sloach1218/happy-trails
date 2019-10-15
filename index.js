@@ -67,6 +67,7 @@ function doThingsWithUserInputs(location, maxDistanceChosen, length, rating){
     }
     //fetch trails using 2nd query
     function retrieveTrails(trailsUrl){
+        console.log(trailsUrl);
         fetch(trailsUrl)
         .then(response => {
             if (response.ok){
@@ -85,21 +86,46 @@ function doThingsWithUserInputs(location, maxDistanceChosen, length, rating){
 function displayTrailResults (responseJson){
     clearCurrent();
     
+    //move search up to fixed position to make room for results
+    const formPosition = $("form").css("position");
+    if(formPosition === 'absolute'){
+        $("form").css({"textAlign": "left", "position": "fixed", "width": "100%", "backgroundColor": "white", "transform":"none", "top":"0", "left":"0"})
+        }
+        
+    //display trails
     for (let i = 0; i < responseJson.trails.length; i++){
         $('ul').append(
             `<li>
+                ${imageMissing(i)}
                 <a href="${responseJson.trails[i].url}" target="-blank">
                 <h2>${responseJson.trails[i].name}</h2></a>
                 <p>${responseJson.trails[i].summary}</p>
-                <p>Visit their website: <a href="${responseJson.trails[i].url}" target="-blank">${responseJson.trails[i].url}</a></p></a>
+                <p class="location">${responseJson.trails[i].location}</p>
+                <p class="location">${responseJson.trails[i].length} Miles</p>
+                <p class="location">Rating: ${responseJson.trails[i].stars}/5</p>
+                <a href="${responseJson.trails[i].url}" target="-blank">Visit website</a>
             </li>`
         )
     };
+
+    //handle empty image string
+    function imageMissing(i){
+        const imageValue = responseJson.trails[i].imgMedium;
+        if ( imageValue === ""){
+
+        } else{
+            return `<div>
+            <img src="${responseJson.trails[i].imgMedium}" alt="${responseJson.trails[i].name}">
+        </div>`
+        }
+    }
 
     const checkIfEmpty = $('ul');
     if(checkIfEmpty.is(':empty')){
         $('ul').append(`<li class="error">No trails were matched with your search. Please try different search parameters.</li>`)
     }
+
+
 }
 
 //clear results if new search submitted
