@@ -1,22 +1,39 @@
 //API key for Hiking Project Data API
 const hikingProjectKey = '200613378-0612b22d914728adefe17eb3fda22c5e';
 const hikingProjectUrl = 'https://www.hikingproject.com/data/get-trails?';
+
+//API key for MapQuest API
 const mapQuestKey = 'Nmlkds9MvGSvViGL4GDaWqFiuU0uSJQk';
 const mapQuestUrl = 'http://open.mapquestapi.com/geocoding/v1/address?';
+
 
 //handle user event submit
 function formSubmit(){
     $('form').submit(event => {
         event.preventDefault();
         const chosenLocation = $('#location').val();
-        userLocationInput(chosenLocation);
+        const chosenMaxDistance = $('#distanceFrom').val();
+        const chosenLength = $('#trailLength').val();
+        const chosenMinimumRating = $('#minimumRating').val();
+        doThingsWithUserInputs(chosenLocation, chosenMaxDistance, chosenLength, chosenMinimumRating);
         
 });}
-//get user location input and fetch lat long coordinates
-function userLocationInput(location){
+
+//get and handle user inputs
+function doThingsWithUserInputs(location, maxDistanceChosen, length, rating){
     
+    //create object to store user inputs
+    const userInputs = {
+        maxDistance : maxDistanceChosen,
+        minLength : length,
+        minStars : rating
+    };
+
+    //create query to get user location input
     const locationUrl = mapQuestUrl + `key=${mapQuestKey}` + `&location=${location}`;
-    //fetch info
+    
+
+    //fetch lat/lon coordinates using query from location input
     fetch(locationUrl)
     .then(response => {
         if (response.ok){
@@ -24,28 +41,58 @@ function userLocationInput(location){
         }
         throw new Error(response.statusText);
     })
-    
-    .then(responseJson => useResults(responseJson))
-    
+    .then(responseJson => useLocationResults(responseJson))
     .catch(err => {alert(`There was an error! Something went wrong: ${err.message}`)});
+
+
+    //create lat/long part of query and add to userInputs object
+    function useLocationResults(responseJson){
+        userInputs.lat = responseJson.results[0].locations[0].latLng.lat;
+        userInputs.lon = responseJson.results[0].locations[0].latLng.lng;
+
+        //let coordinatesJoined = `lat=${userLat}&lon=${userLng}`;
+        //console.log(coordinatesJoined); //delete this line later
+
+        //update object to include user location coordinates
+        //userInputs.lat = userLat;
+        //userInputs.lon = userLng;
+        //console.log(userInputs);
+        createTrailsQuery(userInputs);
+
+    }
+    
+
+    //create 2nd query for Hiking Project Data API using updated userInputs object
+    function createTrailsQuery(params){
+        const trailsQuery = Object.keys(params)
+        .map(key => `${encodeURIComponent(key)}=${params[key]}`);
+        trailsParams = trailsQuery.join('&')
+        trailsUrl = hikingProjectUrl + `key=${hikingProjectKey}` + `&${trailsParams}`;
+        
+        retrieveTrails(trailsUrl);        
+
+    }
+    //fetch trails using 2nd query
+    function retrieveTrails(trailsUrl){
+        fetch(trailsUrl)
+        .then(response => {
+            if (response.ok){
+                return response.json();
+            }
+            throw new Error(response.statusText);
+        })
+        .then(responseJson => displayTrailResults(responseJson))
+        .catch(err => {alert(`There was an error! Something went wrong: ${err.message}`)});
+    
+    }
+
 }
-
-//create 
-function useResults(responseJson){
-    const userLat = responseJson.results[0].locations[0].latLng.lat;
-    const userLng = responseJson.results[0].locations[0].latLng.lng;
-
-    const coordinatesJoined = `lat=${userLat}&lon=${userLng}`;
-    console.log(coordinatesJoined); //delete this line later
-    return coordinatesJoined;
-
-}
-//create 2nd query for Hiking Project Data API using location coordinates & user inputs
-
-//fetch trails using 2nd query
 
 //handle & display trail results to user
+function displayTrailResults (responseJson){
+    console.log(responseJson);
 
+}
 //clear results if new search submitted
 function clearCurrent(){
     $('ul').empty();
