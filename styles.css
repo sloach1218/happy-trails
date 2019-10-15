@@ -31,6 +31,7 @@ input, button{
 ul{
     padding:0 20px;
     max-width:1000px;
+    margin-top:300px;
 }
 ul li {
     text-align: left;
@@ -42,13 +43,10 @@ ul li {
     overflow: auto;
 }
 ul li div{
-    float: right;
-    width:200px;
-    height:200px;
+    width:90%;
     overflow: hidden;
 }
 ul li div img{
-    margin: 0 auto;
     display: block;
     height:200px;
     width: auto;
@@ -62,3 +60,34 @@ ul li p{
 
 
 /* Larger Screen sizes */
+@media only screen and (min-width: 500px) {
+    ul{
+        margin-top: 160px;
+    }
+    ul li div{
+        float: right;
+        width:200px;
+        height:200px;
+    }
+    ul li div img{
+        margin: 0 auto;
+    }
+    .fixedHeader label{
+        display: inline-block;
+        margin-right:20px;
+    }
+    .fixedHeader input {
+        width: 100%;
+        display: inline-block;
+    }
+    .fixedHeader button{
+        width:140px;
+        display: inline-block;
+    }
+    
+}
+@media only screen and (min-width: 859px) {
+    ul{
+        margin-top: 100px;
+    }
+}

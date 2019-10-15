@@ -90,6 +90,7 @@ function displayTrailResults (responseJson){
     const formPosition = $("form").css("position");
     if(formPosition === 'absolute'){
         $("form").css({"textAlign": "left", "position": "fixed", "width": "100%", "backgroundColor": "white", "transform":"none", "top":"0", "left":"0"})
+        $("form").addClass("fixedHeader");
         }
         
     //display trails
@@ -110,9 +111,10 @@ function displayTrailResults (responseJson){
 
     //handle empty image string
     function imageMissing(i){
+        
         const imageValue = responseJson.trails[i].imgMedium;
         if ( imageValue === ""){
-
+            return `<div></div>`
         } else{
             return `<div>
             <img src="${responseJson.trails[i].imgMedium}" alt="${responseJson.trails[i].name}">
