@@ -50,13 +50,6 @@ function doThingsWithUserInputs(location, maxDistanceChosen, length, rating){
         userInputs.lat = responseJson.results[0].locations[0].latLng.lat;
         userInputs.lon = responseJson.results[0].locations[0].latLng.lng;
 
-        //let coordinatesJoined = `lat=${userLat}&lon=${userLng}`;
-        //console.log(coordinatesJoined); //delete this line later
-
-        //update object to include user location coordinates
-        //userInputs.lat = userLat;
-        //userInputs.lon = userLng;
-        //console.log(userInputs);
         createTrailsQuery(userInputs);
 
     }
@@ -90,9 +83,25 @@ function doThingsWithUserInputs(location, maxDistanceChosen, length, rating){
 
 //handle & display trail results to user
 function displayTrailResults (responseJson){
-    console.log(responseJson);
+    clearCurrent();
+    
+    for (let i = 0; i < responseJson.trails.length; i++){
+        $('ul').append(
+            `<li>
+                <a href="${responseJson.trails[i].url}" target="-blank">
+                <h2>${responseJson.trails[i].name}</h2></a>
+                <p>${responseJson.trails[i].summary}</p>
+                <p>Visit their website: <a href="${responseJson.trails[i].url}" target="-blank">${responseJson.trails[i].url}</a></p></a>
+            </li>`
+        )
+    };
 
+    const checkIfEmpty = $('ul');
+    if(checkIfEmpty.is(':empty')){
+        $('ul').append(`<li class="error">No trails were matched with your search. Please try different search parameters.</li>`)
+    }
 }
+
 //clear results if new search submitted
 function clearCurrent(){
     $('ul').empty();
