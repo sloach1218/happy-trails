@@ -1,6 +1,7 @@
 //API key for Hiking Project Data API
 const hikingProjectKey = '200613378-0612b22d914728adefe17eb3fda22c5e';
 const hikingProjectUrl = 'https://www.hikingproject.com/data/get-trails?';
+const nearbycampgroundUrl = 'https://www.hikingproject.com/data/get-campgrounds?';
 
 //API key for MapQuest API
 const mapQuestKey = 'Nmlkds9MvGSvViGL4GDaWqFiuU0uSJQk';
@@ -82,6 +83,9 @@ function doThingsWithUserInputs(location, maxDistanceChosen, length, rating){
 
 }
 
+//create object to hold lat and lon for nearby campgrounds
+let trailLocations = [];
+
 //handle & display trail results to user
 function displayTrailResults (responseJson){
     clearCurrent();
@@ -99,14 +103,20 @@ function displayTrailResults (responseJson){
             `<li>
                 ${imageMissing(i)}
                 <a href="${responseJson.trails[i].url}" target="-blank">
-                <h2>${responseJson.trails[i].name}</h2></a>
+                <h2 class="name">${responseJson.trails[i].name}</h2></a>
                 <p>${responseJson.trails[i].summary}</p>
                 <p class="location">${responseJson.trails[i].location}</p>
                 <p class="location">${responseJson.trails[i].length} Miles</p>
                 <p class="location">Rating: ${responseJson.trails[i].stars}/5</p>
+                <p class="location">Current Condition: ${responseJson.trails[i].conditionStatus}</p>
                 <a href="${responseJson.trails[i].url}" target="-blank">Visit website</a>
+                <button type="submit" id="nearbyCampgrounds" class="findCampground${i}">Nearby Campgrounds</button>
             </li>`
         )
+        trailLocations.push({
+            lat: responseJson.trails[i].latitude,
+            lon: responseJson.trails[i].longitude
+        });
     };
 
     //handle empty image string
@@ -129,10 +139,68 @@ function displayTrailResults (responseJson){
 
 
 }
+let trailClass = '';
+//handle user submit nearby campground search
+function campgroundSubmit(){
+    $('ul').on('click', '#nearbyCampgrounds', function() {
+        event.preventDefault();
+        console.log('hi');
+        trailClass = $(this).attr('class');
+        const trailNumber = trailClass[trailClass.length-1];
+        retrieveLatestDataLocations(trailNumber);
+        
+        
+        
+});}
+function retrieveLatestDataLocations(n){
+    const trailLat = trailLocations[n].lat;
+    const trailLon = trailLocations[n].lon;
+
+    findNearbyCampgrounds(trailLat, trailLon);
+}
+
+//get nearby campgrounds
+function findNearbyCampgrounds(lat, lon){
+    
+    const campgroundUrl = nearbycampgroundUrl + `lat=${lat}` + `&lon=${lon}` + `&key=${hikingProjectKey}` + `&maxDistance=60`;
+    console.log(campgroundUrl);
+    fetch(campgroundUrl)
+        .then(response => {
+            if (response.ok){
+                return response.json();
+            }
+            throw new Error(response.statusText);
+        })
+        .then(responseJson => displayCampgroundResults(responseJson))
+        .catch(err => {alert(`There was an error! Something went wrong: ${err.message}`)});
+    }
+
+//display campground results
+function displayCampgroundResults(responseJson){
+    
+    if(responseJson.campgrounds.length === 0){
+        $(`<p>Sorry, no campgrounds were found nearby.</p>`).insertAfter(`.${trailClass}`)
+    } else{
+    for (let i = 0; i < 3; i++){
+        $(`<div class="campgrounds">
+        <img src="${responseJson.campgrounds[i].imgUrl}">
+        <a href="${responseJson.campgrounds[i].url}"><h3 class="name">${responseJson.campgrounds[i].name}</h3></a>
+    </div>`).insertAfter(`.${trailClass}`
+            
+        )
+        
+    };}
+}
+
+//handle no results for nearby campgrounds
+
 
 //clear results if new search submitted
+//also clear object storing locations
 function clearCurrent(){
     $('ul').empty();
+    trailLocations = [];
 }
 
 $(formSubmit);
+$(campgroundSubmit);

@@ -27,7 +27,7 @@ input, button{
 }
 
 
-/*Display Search Results Styles*/
+/*Display Trails Search Results Styles*/
 ul{
     padding:0 20px;
     max-width:1000px;
@@ -57,8 +57,28 @@ ul li h2{
 ul li p{
     margin: 8px 0;
 }
+ul li button {
+    width: 150px;
+    padding: 10px 0;
+    margin-top: 10px;
+}
 
-
+/* Display Campgrounds Results Styles */
+.campgrounds{
+    width: auto;
+    height:auto;
+    overflow: auto;
+    float:left;
+    margin-right:20px;
+    margin-left:0;
+}
+.campgrounds img{
+    height:100px;
+    width:auto;
+}
+.campgrounds h3{
+    font-size:16px;
+}
 /* Larger Screen sizes */
 @media only screen and (min-width: 500px) {
     ul{
@@ -68,6 +88,7 @@ ul li p{
         float: right;
         width:200px;
         height:200px;
+        margin-left: 20px;
     }
     ul li div img{
         margin: 0 auto;
