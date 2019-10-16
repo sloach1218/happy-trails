@@ -16,13 +16,13 @@
                     <input type="text" name="location" id="location" required>
                 </label>
                 <label for="distanceFrom">Max distance from location:<br>
-                    <input type="number" name="distranFrom" id="distanceFrom" value="30">
+                    <input type="number" name="distranFrom" id="distanceFrom" value="30" min="1" max="200">
                 </label>
                 <label for="trailLength">Min Trail Length:<br>
-                    <input type="number" name="trailLength" id="trailLength" value="0">
+                    <input type="number" name="trailLength" id="trailLength" value="0" min="0" max="1000">
                 </label>
                 <label for="minimumRating">Minimum Star Rating:<br>
-                    <input type="number" name="minimumRating" id="minimumRating" value="0">
+                    <input type="number" name="minimumRating" id="minimumRating" value="0" min="0" max="4">
                 </label>
                 <button type="submit">Submit</button>
             </fieldset>
