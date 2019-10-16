@@ -5,7 +5,7 @@ const nearbycampgroundUrl = 'https://www.hikingproject.com/data/get-campgrounds?
 
 //API key for MapQuest API
 const mapQuestKey = 'Nmlkds9MvGSvViGL4GDaWqFiuU0uSJQk';
-const mapQuestUrl = 'http://open.mapquestapi.com/geocoding/v1/address?';
+const mapQuestUrl = 'https://open.mapquestapi.com/geocoding/v1/address?';
 
 
 //handle user event submit
