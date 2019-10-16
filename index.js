@@ -68,7 +68,7 @@ function doThingsWithUserInputs(location, maxDistanceChosen, length, rating){
     }
     //fetch trails using 2nd query
     function retrieveTrails(trailsUrl){
-        console.log(trailsUrl);
+        //console.log(trailsUrl);
         fetch(trailsUrl)
         .then(response => {
             if (response.ok){
@@ -144,7 +144,6 @@ let trailClass = '';
 function campgroundSubmit(){
     $('ul').on('click', '#nearbyCampgrounds', function() {
         event.preventDefault();
-        console.log('hi');
         trailClass = $(this).attr('class');
         const trailNumber = trailClass[trailClass.length-1];
         retrieveLatestDataLocations(trailNumber);
@@ -163,7 +162,7 @@ function retrieveLatestDataLocations(n){
 function findNearbyCampgrounds(lat, lon){
     
     const campgroundUrl = nearbycampgroundUrl + `lat=${lat}` + `&lon=${lon}` + `&key=${hikingProjectKey}` + `&maxDistance=60`;
-    console.log(campgroundUrl);
+    //console.log(campgroundUrl);
     fetch(campgroundUrl)
         .then(response => {
             if (response.ok){
