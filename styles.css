@@ -39,14 +39,14 @@ fieldset{
 form{
     margin: 0;
     position: fixed;
-    top: 0;
     text-align: left;
     background-color: whitesmoke;
     border-bottom: 4px solid darkgreen;
     padding: 5px;
     z-index: 10;
     width: 100%;
-    margin-top: 54vh;
+    bottom:0;
+    left: 0;
 }
 legend{
     font-family: 'Roboto Slab', Arial, Helvetica, sans-serif;
@@ -130,6 +130,7 @@ ul li button {
 }
 #resultsHeader{
     position: fixed;
+    z-index: 10;
     width: 100%;
     background-color: #99BD4B;
     top: 0;
@@ -195,23 +196,18 @@ ul li button {
     
     
 }
-@media only screen and (min-width: 859px) {
+@media only screen and (min-width: 820px) {
+    form input, form label, form button{
+        display: inline-block;
+        margin-right: 9px;
+    }
+    form button{
+        width:auto;
+        padding: 6px 15px;
+    }
     ul{
         margin-top: 110px;
     }
-    #backgroundImg p{
-        display:none;
-    }
-    form{
-        position: fixed;
-        top: 100px;
-        left: 100px;
-        text-align: left;
-        box-shadow: 0px -2px 17px black;
-        transform: none;
-        width:auto;
-        margin-top:0;
-        }
     #backgroundImg{
         background-image: url(Images/forest.JPG);
         background-repeat: no-repeat;

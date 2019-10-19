@@ -94,8 +94,8 @@ function displayTrailResults (responseJson){
     
     //move search up to top and hide
         $('form').addClass('hidden');
-        $('form').css({'marginTop': '0', 'top': '0', 'left': '0'})
-        $('ul').append(`<div id="resultsHeader"><p>Showing Search Results for "${displayLocationForResults}"</p><button type="submit" id="showForm">Update Search</button></div>`)
+        $('form').css({'marginTop': '0', 'top': '0', 'left': '0', 'width': '100%', 'bottom': 'unset'})
+        $(`<div id="resultsHeader"><p>Showing Search Results for "${displayLocationForResults}"</p><button type="submit" id="showForm">Update Search</button></div>`).insertBefore('ul')
         console.log(displayLocationForResults);
     
         
@@ -195,9 +195,9 @@ function displayCampgroundResults(responseJson){
 
 //Show search form on user click of Update Search button
 function showSearchForm(){
-    $('ul').on('click', '#showForm', function() {
+    $('main').on('click', '#showForm', function() {
         event.preventDefault();
-        $('#resultsHeader').addClass('hidden');
+        $('#resultsHeader').remove();
         $('form').removeClass('hidden');
     });
 }
