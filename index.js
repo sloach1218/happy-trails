@@ -7,7 +7,7 @@ const nearbycampgroundUrl = 'https://www.hikingproject.com/data/get-campgrounds?
 const mapQuestKey = 'Nmlkds9MvGSvViGL4GDaWqFiuU0uSJQk';
 const mapQuestUrl = 'https://open.mapquestapi.com/geocoding/v1/address?';
 
-
+let displayLocationForResults = '';
 //handle user event submit
 function formSubmit(){
     $('form').submit(event => {
@@ -17,7 +17,8 @@ function formSubmit(){
         const chosenLength = $('#trailLength').val();
         const chosenMinimumRating = $('#minimumRating').val();
         doThingsWithUserInputs(chosenLocation, chosenMaxDistance, chosenLength, chosenMinimumRating);
-        
+        displayLocationForResults = chosenLocation;
+        return chosenLocation;
 });}
 
 //get and handle user inputs
@@ -89,13 +90,14 @@ let trailLocations = [];
 //handle & display trail results to user
 function displayTrailResults (responseJson){
     clearCurrent();
+    $('#backgroundImg').hide();
     
-    //move search up to fixed position to make room for results
-    const formPosition = $("form").css("position");
-    if(formPosition === 'absolute'){
-        $("form").css({"textAlign": "left", "position": "fixed", "width": "100%", "backgroundColor": "white", "transform":"none", "top":"0", "left":"0"})
-        $("form").addClass("fixedHeader");
-        }
+    //move search up to top and hide
+        $('form').addClass('hidden');
+        $('form').css({'marginTop': '0', 'top': '0', 'left': '0'})
+        $('ul').append(`<div id="resultsHeader"><p>Showing Search Results for "${displayLocationForResults}"</p><button type="submit" id="showForm">Update Search</button></div>`)
+        console.log(displayLocationForResults);
+    
         
     //display trails
     for (let i = 0; i < responseJson.trails.length; i++){
@@ -110,7 +112,7 @@ function displayTrailResults (responseJson){
                 <p class="location">Rating: ${responseJson.trails[i].stars}/5</p>
                 <p class="location">Current Condition: ${responseJson.trails[i].conditionStatus}</p>
                 <a href="${responseJson.trails[i].url}" target="-blank">Visit website</a>
-                <button type="submit" id="nearbyCampgrounds" class="findCampground${i}">Nearby Campgrounds</button>
+                <button type="submit" id="nearbyCampgrounds" class="findCampground${i}">Search for Nearby Campgrounds</button>
             </li>`
         )
         trailLocations.push({
@@ -123,7 +125,7 @@ function displayTrailResults (responseJson){
     function imageMissing(i){
         
         const imageValue = responseJson.trails[i].imgMedium;
-        if ( imageValue === ""){
+        if ( imageValue === ''){
             return `<div></div>`
         } else{
             return `<div>
@@ -180,19 +182,25 @@ function displayCampgroundResults(responseJson){
     if(responseJson.campgrounds.length === 0){
         $(`<p>Sorry, no campgrounds were found nearby.</p>`).insertAfter(`.${trailClass}`)
     } else{
-    for (let i = 0; i < 3; i++){
-        $(`<div class="campgrounds">
-        <img src="${responseJson.campgrounds[i].imgUrl}">
-        <a href="${responseJson.campgrounds[i].url}"><h3 class="name">${responseJson.campgrounds[i].name}</h3></a>
-    </div>`).insertAfter(`.${trailClass}`
+        for (let i = 0; i < responseJson.campgrounds.length; i++){
+            $(`<div class="campgrounds">
+            <img src="${responseJson.campgrounds[i].imgUrl}">
+            <a href="${responseJson.campgrounds[i].url}"><h3 class="name">${responseJson.campgrounds[i].name}</h3></a>
+        </div>`).insertAfter(`.${trailClass}`
             
         )
         
     };}
 }
 
-//handle no results for nearby campgrounds
-
+//Show search form on user click of Update Search button
+function showSearchForm(){
+    $('ul').on('click', '#showForm', function() {
+        event.preventDefault();
+        $('#resultsHeader').addClass('hidden');
+        $('form').removeClass('hidden');
+    });
+}
 
 //clear results if new search submitted
 //also clear object storing locations
@@ -203,3 +211,4 @@ function clearCurrent(){
 
 $(formSubmit);
 $(campgroundSubmit);
+$(showSearchForm);

@@ -6,22 +6,24 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Hiking App</title>
     <link rel="stylesheet" type="text/css" href="styles.css">
+    <link href="https://fonts.googleapis.com/css?family=Quicksand|Roboto+Slab&display=swap" rel="stylesheet">
 </head>
 <body>
+    <div id="backgroundImg"><p>Get Outside<br>& Explore</p></div>
     <main>
         <form>
             <fieldset>
                 <legend>Plan your next hiking trip!</legend>
                 <label for="location">Location:<br>
-                    <input type="text" name="location" id="location" required>
+                    <input type="text" name="location" id="location" placeholder="Search by City, State or Zip Code" required>
                 </label>
-                <label for="distanceFrom">Max distance from location:<br>
+                <label for="distanceFrom">Max distance from location (in miles):<br>
                     <input type="number" name="distranFrom" id="distanceFrom" value="30" min="1" max="200">
                 </label>
-                <label for="trailLength">Min Trail Length:<br>
+                <label for="trailLength">Min Trail Length (in miles):<br>
                     <input type="number" name="trailLength" id="trailLength" value="0" min="0" max="1000">
                 </label>
-                <label for="minimumRating">Minimum Star Rating:<br>
+                <label for="minimumRating">Min Star Rating:<br>
                     <input type="number" name="minimumRating" id="minimumRating" value="0" min="0" max="4">
                 </label>
                 <button type="submit">Submit</button>
