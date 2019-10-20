@@ -182,12 +182,12 @@ function displayCampgroundResults(responseJson){
     if(responseJson.campgrounds.length === 0){
         $(`<p>Sorry, no campgrounds were found nearby.</p>`).insertAfter(`.${trailClass}`)
     } else{
-        for (let i = 0; i < responseJson.campgrounds.length; i++){
+        for (let i = 0; i < responseJson.campgrounds.length && i < 3; i++){
             $(`<div class="campgrounds">
             <img src="${responseJson.campgrounds[i].imgUrl}">
             <a href="${responseJson.campgrounds[i].url}"><h3 class="name">${responseJson.campgrounds[i].name}</h3></a>
         </div>`).insertAfter(`.${trailClass}`
-            
+    
         )
         
     };}

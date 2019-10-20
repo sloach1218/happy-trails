@@ -42,7 +42,7 @@ body{
     margin: -5px 5px 5px 5px;
     padding: -0 30px 15px 45px;
     font-family: 'Quicksand', Arial, Helvetica, sans-serif;
-    
+    color: #0f2e3d;
 }
 main{
     max-width:1030px;
@@ -56,8 +56,8 @@ form{
     margin: 0;
     position: fixed;
     text-align: left;
-    background-color: whitesmoke;
-    border-bottom: 4px solid darkgreen;
+    background-color: #0f2e3d;
+    border-top: 4px solid darkgreen;
     padding: 5px;
     z-index: 10;
     width: 100%;
@@ -67,7 +67,13 @@ form{
 legend{
     font-family: 'Roboto Slab', Arial, Helvetica, sans-serif;
     font-size: 24px;
-    color: darkgreen;
+    color: #fff;
+}
+label{
+    color:#fff;
+}
+input{
+    margin-top: 2px;
 }
 input, label, button{
     display: block;
@@ -76,6 +82,9 @@ input, button{
     width:100%;
     margin-bottom: 10px;
     padding: 5px 4px;
+}
+input#location{
+    min-width: 180px;
 }
 form button{
     cursor: pointer;
@@ -127,6 +136,7 @@ ul li h2{
 }
 ul li a{
     text-decoration: none;
+    color: darkgreen;
 }
 ul li p{
     margin: 8px 0;
@@ -148,14 +158,16 @@ ul li button {
     position: fixed;
     z-index: 10;
     width: 100%;
-    background-color: #99BD4B;
+    background-color: #0f2e3d;
     top: 0;
     left: 0;
     box-shadow: 1px 0px 13px grey;
+    border-bottom: 4px solid darkgreen;
 }
 #resultsHeader p{
     font-size: 14px;
     margin: 12px;
+    color: whitesmoke;
 }
 #resultsHeader button{
     width:90%;
@@ -244,5 +256,15 @@ ul li button {
         position: fixed;
         z-index: 1;
         top: 0;
+    }
+    #resultsHeader p{
+        font-size: 16px;
+        float:left;
+        margin: 15px 0 0 30px;
+    }
+    #resultsHeader button{
+        float:right;
+        width:160px;
+        margin: 8px 30px;
     }
 }
