@@ -139,7 +139,7 @@ ul li a{
     color: darkgreen;
 }
 ul li p{
-    margin: 8px 0;
+    margin: 4px 0;
 }
 ul li p:first-of-type{
     margin: 5px 0 8px 0;
@@ -193,6 +193,37 @@ ul li button {
 .campgrounds h3{
     font-size:16px;
     font-family: 'Roboto Slab', Arial, Helvetica, sans-serif;
+}
+#nearbyCampgroundSearch{
+    width:100%;
+    height:auto;
+}
+#nearbyCampgroundSearch fieldset{
+    margin: 10px 0 0 0;
+    padding: 0;
+}
+#nearbyCampgroundSearch legend{
+    font-size: 18px;
+    color:darkgreen;
+    padding:0;
+}
+#nearbyCampgroundSearch label{
+    color: black;
+    display: inline-block;
+}
+#nearbyCampgroundSearch input{
+    width: 60px;
+    display:inline-block;
+    margin-bottom:0;
+}
+#nearbyCampgroundSearch button{
+    display:inline-block;
+    margin-top:4px;
+    width:70px;
+    padding: 7px 0;
+}
+#nearbyCampgroundSearch p{
+    font-size: 16px;
 }
 /* Larger Screen sizes */
 @media only screen and (min-width: 500px) {

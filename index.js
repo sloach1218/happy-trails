@@ -94,7 +94,7 @@ function displayTrailResults (responseJson){
     
     //move search up to top and hide
         $('form').addClass('hidden');
-        $('form').css({'marginTop': '0', 'top': '0', 'left': '0', 'width': '100%', 'bottom': 'unset'})
+        $('form').css({'marginTop': '0', 'top': '0', 'left': '0', 'width': '100%', 'bottom': 'unset', "borderTop":"none", "borderBottom": "4px solid darkgreen"})
         $(`<div id="resultsHeader"><p>Showing Search Results for "${displayLocationForResults}"</p><button type="submit" id="showForm">Update Search</button></div>`).insertBefore('ul')
         console.log(displayLocationForResults);
     
@@ -112,7 +112,13 @@ function displayTrailResults (responseJson){
                 <p class="location">Rating: ${responseJson.trails[i].stars}/5</p>
                 <p class="location">Current Condition: ${responseJson.trails[i].conditionStatus}</p>
                 <a href="${responseJson.trails[i].url}" target="-blank">Visit website</a>
-                <button type="submit" id="nearbyCampgrounds" class="findCampground${i}">Search for Nearby Campgrounds</button>
+                <div id="nearbyCampgroundSearch">
+                    <fieldset>
+                        <legend>Find a nearby campground:</legend>
+                        <label for="campgroundDistanceFrom">Max distance from trail: <input type="number" value="60" id="campgroundDistanceFrom" min="1" max="200"></label>
+                        <button type="submit" id="nearbyCampgrounds" class="findCampground${i}">Search</button>
+                    </fieldset>
+                </div>
             </li>`
         )
         trailLocations.push({
@@ -148,23 +154,23 @@ function campgroundSubmit(){
         event.preventDefault();
         trailClass = $(this).attr('class');
         const trailNumber = trailClass[trailClass.length-1];
-        retrieveLatestDataLocations(trailNumber);
+        const distanceFromTrail = $('#campgroundDistanceFrom').val();
+        retrieveLatestDataLocations(trailNumber, distanceFromTrail);
         
         
         
 });}
-function retrieveLatestDataLocations(n){
+function retrieveLatestDataLocations(n, m){
     const trailLat = trailLocations[n].lat;
     const trailLon = trailLocations[n].lon;
 
-    findNearbyCampgrounds(trailLat, trailLon);
+    findNearbyCampgrounds(trailLat, trailLon, m);
 }
 
 //get nearby campgrounds
-function findNearbyCampgrounds(lat, lon){
+function findNearbyCampgrounds(lat, lon, dist){
     
-    const campgroundUrl = nearbycampgroundUrl + `lat=${lat}` + `&lon=${lon}` + `&key=${hikingProjectKey}` + `&maxDistance=60`;
-    //console.log(campgroundUrl);
+    const campgroundUrl = nearbycampgroundUrl + `lat=${lat}` + `&lon=${lon}` + `&key=${hikingProjectKey}` + `&maxDistance=${dist}`;
     fetch(campgroundUrl)
         .then(response => {
             if (response.ok){
@@ -178,7 +184,7 @@ function findNearbyCampgrounds(lat, lon){
 
 //display campground results
 function displayCampgroundResults(responseJson){
-    
+    clearCampgroundsCurrent();
     if(responseJson.campgrounds.length === 0){
         $(`<p>Sorry, no campgrounds were found nearby.</p>`).insertAfter(`.${trailClass}`)
     } else{
@@ -190,7 +196,9 @@ function displayCampgroundResults(responseJson){
     
         )
         
-    };}
+    };
+    $('<br>').insertAfter(`.${trailClass}`);
+    }
 }
 
 //Show search form on user click of Update Search button
@@ -207,6 +215,11 @@ function showSearchForm(){
 function clearCurrent(){
     $('ul').empty();
     trailLocations = [];
+}
+
+function clearCampgroundsCurrent(){
+    $('.campgrounds').remove();
+    $('#nearbyCampgroundSearch p').remove();
 }
 
 $(formSubmit);
