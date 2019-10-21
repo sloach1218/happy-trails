@@ -69,7 +69,6 @@ function doThingsWithUserInputs(location, maxDistanceChosen, length, rating){
     }
     //fetch trails using 2nd query
     function retrieveTrails(trailsUrl){
-        //console.log(trailsUrl);
         fetch(trailsUrl)
         .then(response => {
             if (response.ok){
@@ -96,7 +95,6 @@ function displayTrailResults (responseJson){
         $('#trailForm').addClass('hidden');
         $('#trailForm').css({'marginTop': '0', 'top': '0', 'left': '0', 'width': '100%', 'bottom': 'unset', "borderTop":"none", "borderBottom": "4px solid darkgreen"})
         $(`<div id="resultsHeader"><p>Showing Search Results for "${displayLocationForResults}"</p><button type="submit" id="showForm">Update Search</button></div>`).insertBefore('ul')
-        console.log(displayLocationForResults);
     
         
     //display trails
