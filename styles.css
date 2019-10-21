@@ -29,20 +29,21 @@ body{
 }
 #backgroundImg p, h1{
     font-family: 'Roboto Slab', Arial, Helvetica, sans-serif;
-    font-size: 38px;
+    font-size: 32px;
     color: darkgreen;
-    padding: 4px 30px 10px 30px;
+    padding: 4px 20px 10px 20px;
     text-align: left;
     margin: 5px 5px 0 5px;
     display: block;
     background-color: rgba(255,255,255, 1);
 }
 #backgroundImg p{
-    font-size:20px;
+    font-size:18px;
     margin: -5px 5px 5px 5px;
-    padding: -0 30px 15px 45px;
+    padding: 0 20px 15px 24px;
     font-family: 'Quicksand', Arial, Helvetica, sans-serif;
     color: #0f2e3d;
+    font-weight: 500;
 }
 main{
     max-width:1030px;
@@ -52,7 +53,7 @@ fieldset{
     border: none;
     margin-top:10px;
 }
-form{
+#trailForm{
     margin: 0;
     position: fixed;
     text-align: left;
@@ -66,7 +67,7 @@ form{
 }
 legend{
     font-family: 'Roboto Slab', Arial, Helvetica, sans-serif;
-    font-size: 24px;
+    font-size: 22px;
     color: #fff;
 }
 label{
@@ -77,6 +78,7 @@ input{
 }
 input, label, button{
     display: block;
+    font-weight: 500;
 }
 input, button{
     width:100%;
@@ -89,10 +91,13 @@ input#location{
 form button{
     cursor: pointer;
     padding: 8px 4px;
-    background-color: darkgreen;
+    background-color: #006400;
     color: white;
     border: none;
     font-size: 16px;
+}
+form button:hover{
+    background-color: #005200;
 }
 .hidden{
     display:none;
@@ -137,13 +142,21 @@ ul li h2{
 ul li a{
     text-decoration: none;
     color: darkgreen;
+    font-weight: 700;
+}
+ul li a:hover{
+    color:#0f2e3d;
 }
 ul li p{
     margin: 4px 0;
+    color:#0f2e3d;
+    font-weight: 700;
 }
 ul li p:first-of-type{
     margin: 5px 0 8px 0;
     font-size: 20px;
+    color:#000;
+    font-weight: 600;
 }
 ul li button {
     width: 200px;
@@ -153,6 +166,9 @@ ul li button {
     color: white;
     border: none;
     cursor: pointer;
+}
+ul li button:hover{
+    background-color: #005200;
 }
 #resultsHeader{
     position: fixed;
@@ -168,6 +184,7 @@ ul li button {
     font-size: 14px;
     margin: 12px;
     color: whitesmoke;
+    font-weight: 600;
 }
 #resultsHeader button{
     width:90%;
@@ -175,6 +192,9 @@ ul li button {
     cursor: pointer;
     padding: 10px;
     background-color: whitesmoke;
+}
+#resultsHeader button:hover{
+    background-color: #ddd;
 }
 
 /* Display Campgrounds Results Styles */
@@ -197,6 +217,7 @@ ul li button {
 #nearbyCampgroundSearch{
     width:100%;
     height:auto;
+    margin-top:10px;
 }
 #nearbyCampgroundSearch fieldset{
     margin: 10px 0 0 0;
@@ -210,11 +231,13 @@ ul li button {
 #nearbyCampgroundSearch label{
     color: black;
     display: inline-block;
+    font-weight: 700;
 }
 #nearbyCampgroundSearch input{
     width: 60px;
     display:inline-block;
     margin-bottom:0;
+    margin-right:0;
 }
 #nearbyCampgroundSearch button{
     display:inline-block;
@@ -225,7 +248,23 @@ ul li button {
 #nearbyCampgroundSearch p{
     font-size: 16px;
 }
+.fa-angle-right:before {
+    vertical-align: middle;
+}
 /* Larger Screen sizes */
+@media only screen and (min-width: 345px) {
+    #backgroundImg p, h1{
+        font-size: 38px;
+        padding: 4px 30px 10px 30px;
+    }
+    #backgroundImg p {
+        font-size: 20px;
+        padding: 0 30px 15px 45px;
+    }
+    legend{
+        font-size: 24px;
+    }
+}
 @media only screen and (min-width: 500px) {
     ul li div{
         float: right;
@@ -248,7 +287,7 @@ ul li button {
         display: inline-block;
     }
     .fixedHeader button{
-        width:140px;
+        width:130px;
         display: inline-block;
     }
 
@@ -258,6 +297,7 @@ ul li button {
 @media only screen and (min-width: 820px) {
     #titleTagline{
         margin-top: 108px;
+        margin-left:80px;
     }
     #backgroundImg p, h1{
         font-size: 56px;
@@ -295,7 +335,13 @@ ul li button {
     }
     #resultsHeader button{
         float:right;
-        width:160px;
+        width:130px;
         margin: 8px 30px;
+    }
+}
+@media only screen and (min-width: 1000px) {
+    #titleTagline{
+        
+        margin-left:120px;
     }
 }

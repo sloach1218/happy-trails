@@ -10,7 +10,7 @@ const mapQuestUrl = 'https://open.mapquestapi.com/geocoding/v1/address?';
 let displayLocationForResults = '';
 //handle user event submit
 function formSubmit(){
-    $('form').submit(event => {
+    $('#trailForm').submit(event => {
         event.preventDefault();
         const chosenLocation = $('#location').val();
         const chosenMaxDistance = $('#distanceFrom').val();
@@ -93,8 +93,8 @@ function displayTrailResults (responseJson){
     $('#backgroundImg').hide();
     
     //move search up to top and hide
-        $('form').addClass('hidden');
-        $('form').css({'marginTop': '0', 'top': '0', 'left': '0', 'width': '100%', 'bottom': 'unset', "borderTop":"none", "borderBottom": "4px solid darkgreen"})
+        $('#trailForm').addClass('hidden');
+        $('#trailForm').css({'marginTop': '0', 'top': '0', 'left': '0', 'width': '100%', 'bottom': 'unset', "borderTop":"none", "borderBottom": "4px solid darkgreen"})
         $(`<div id="resultsHeader"><p>Showing Search Results for "${displayLocationForResults}"</p><button type="submit" id="showForm">Update Search</button></div>`).insertBefore('ul')
         console.log(displayLocationForResults);
     
@@ -107,17 +107,19 @@ function displayTrailResults (responseJson){
                 <a href="${responseJson.trails[i].url}" target="-blank">
                 <h2 class="name">${responseJson.trails[i].name}</h2></a>
                 <p>${responseJson.trails[i].summary}</p>
-                <p class="location">${responseJson.trails[i].location}</p>
-                <p class="location">${responseJson.trails[i].length} Miles</p>
-                <p class="location">Rating: ${responseJson.trails[i].stars}/5</p>
-                <p class="location">Current Condition: ${responseJson.trails[i].conditionStatus}</p>
-                <a href="${responseJson.trails[i].url}" target="-blank">Visit website</a>
+                <p class="location"><i class="fas fa-map-marker-alt"></i> ${responseJson.trails[i].location}</p>
+                <p class="location"><i class="fas fa-hiking"></i> ${responseJson.trails[i].length} Miles</p>
+                <p class="location"><i class="fas fa-star"></i> Rating: ${responseJson.trails[i].stars}/5</p>
+                <p class="location"><i class="fas fa-cloud-sun-rain"></i> Current Condition: ${responseJson.trails[i].conditionStatus}</p>
+                <a href="${responseJson.trails[i].url}" target="-blank">Visit website <i class="fas fa-angle-right"></i></i></a>
                 <div id="nearbyCampgroundSearch">
-                    <fieldset>
-                        <legend>Find a nearby campground:</legend>
-                        <label for="campgroundDistanceFrom">Max distance from trail: <input type="number" value="60" id="campgroundDistanceFrom" min="1" max="200"></label>
-                        <button type="submit" id="nearbyCampgrounds" class="findCampground${i}">Search</button>
-                    </fieldset>
+                    <form>
+                        <fieldset>
+                            <legend><i class="fas fa-campground"></i> Find a nearby campground:</legend>
+                            <label for="campgroundDistanceFrom">Max distance from trail: <input type="number" value="60" id="campgroundDistanceFrom" min="1" max="200"> miles</label>
+                            <button type="submit" id="nearbyCampgrounds" class="findCampground${i}">Search</button>
+                        </fieldset>
+                    </form>
                 </div>
             </li>`
         )
@@ -218,8 +220,9 @@ function clearCurrent(){
 }
 
 function clearCampgroundsCurrent(){
-    $('.campgrounds').remove();
-    $('#nearbyCampgroundSearch p').remove();
+    $(`.${trailClass}`).siblings('.campgrounds').remove();
+    $(`.${trailClass}`).siblings('#nearbyCampgroundSearch p').remove();
+    $(`.${trailClass}`).siblings('br').remove();
 }
 
 $(formSubmit);
