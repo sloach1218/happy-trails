@@ -11,8 +11,8 @@ This app helps users plan a hiking trip by assisting in finding trails, nearby c
 * JavaScript
 * jQuery
 
-## Live Demo
-[Live App](https://sloach1218.github.io/hiking-app/)
+## Demo
+[Live App](https://sloach1218.github.io/happy-trails/)
 
 ## Screenshots
 Landing Page:
