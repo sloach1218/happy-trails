@@ -193,7 +193,7 @@ function displayCampgroundResults(responseJson){
         for (let i = 0; i < responseJson.campgrounds.length && i < 3; i++){
             $(`<div class="campgrounds">
             <img src="${responseJson.campgrounds[i].imgUrl}">
-            <a href="${responseJson.campgrounds[i].url}"><h3 class="name">${responseJson.campgrounds[i].name}</h3></a>
+            <a href="${responseJson.campgrounds[i].url}" target="_blank"><h3 class="name">${responseJson.campgrounds[i].name}</h3></a>
         </div>`).insertAfter(`.${trailClass}`
     
         )
